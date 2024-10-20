@@ -33,3 +33,19 @@ This project fetches Instagram posts for a specified user and downloads the vide
 ## Environment Variables
 
 Create a `.env` file in the root of your project and add your Apify API key:
+
+## Running
+
+Change username and other params where necessary for instagram / tiktok profiles.
+
+### Instagram
+
+```bash
+npx ts-node instagram.ts
+```
+
+### Tiktok
+
+```bash
+npx ts-node tiktok.ts
+```

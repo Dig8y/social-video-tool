@@ -6,9 +6,11 @@ dotenv.config();
 
 const getPosts = async ({
   username,
+  maxResults,
   withVideos = false,
 }: {
   username: string;
+  maxResults: number;
   withVideos: boolean;
 }) => {
   if (!process.env.APIFY_API_KEY) {
@@ -18,13 +20,13 @@ const getPosts = async ({
   const data = {
     excludePinnedPosts: false,
     profiles: [username],
-    resultsPerPage: 2,
+    resultsPerPage: maxResults,
     shouldDownloadCovers: false,
     shouldDownloadSlideshowImages: false,
     shouldDownloadSubtitles: false,
     shouldDownloadVideos: withVideos,
     searchSection: "",
-    maxProfilesPerQuery: 2,
+    maxProfilesPerQuery: 1,
   };
 
   const headers = {
@@ -129,8 +131,9 @@ const downloadTTPosts = async ({
   const username = "willcaplan_changemakers";
   console.log("fetching profile data for...", username);
   const withVideos = false;
+  const maxResults = 200;
   try {
-    const posts = await getPosts({ username, withVideos });
+    const posts = await getPosts({ username, maxResults, withVideos });
     fs.writeFileSync(
       `tt_${username}_posts.json`,
       JSON.stringify(posts, null, 2)
